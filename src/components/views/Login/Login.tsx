@@ -1,11 +1,19 @@
 import { PasswordInput } from "@/components/ui/password-input";
 import useLogin from "@/hooks/useLogin";
-import { Button, Card, Field, Flex, Input, Stack } from "@chakra-ui/react";
+import {
+  Button,
+  Card,
+  Field,
+  Flex,
+  Input,
+  Spinner,
+  Stack
+} from "@chakra-ui/react";
 import Image from "next/image";
 import { Controller } from "react-hook-form";
 
 const Login = () => {
-  const { form, handleLogin } = useLogin();
+  const { form, handleLogin, isLoading } = useLogin();
 
   return (
     <Card.Root className="rounded-5xl overflow-hidden" width={1024}>
@@ -17,6 +25,7 @@ const Login = () => {
             alt="logo"
             width={1024}
             height={1024}
+            unoptimized
             className="w-full"
           />
         </div>
@@ -51,8 +60,13 @@ const Login = () => {
                   )}
                 />
 
-                <Button type="submit" className="w-full" marginTop={10}>
-                  Login
+                <Button
+                  type="submit"
+                  className="w-full"
+                  marginTop={10}
+                  disabled={isLoading}
+                >
+                  {isLoading ? <Spinner size="sm" /> : "Login"}
                 </Button>
               </Stack>
             </form>
