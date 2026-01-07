@@ -1,12 +1,10 @@
-import PageHead from "@/components/commons";
-import { Button } from "@chakra-ui/react";
+import GuestLayout from "@/components/layouts/GuestLayout";
+import Homepage from "@/components/views/Home/Home";
 
 export default function Home() {
   return (
-    <div>
-      <PageHead title="LuxeMist | Homepage" />
-      <h1>HomePage</h1>
-      <Button onClick={() => alert("Hello World")}>Klik Me</Button>
-    </div>
+    <GuestLayout title="LuxeMist | Homepage">
+      <Homepage />
+    </GuestLayout>
   );
 }

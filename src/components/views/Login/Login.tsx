@@ -1,79 +1,58 @@
-import { PasswordInput } from "@/components/ui/password-input";
-import useLogin from "@/hooks/useLogin";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import {
-  Button,
-  Card,
   Field,
-  Flex,
-  Input,
-  Spinner,
-  Stack
-} from "@chakra-ui/react";
+  FieldDescription,
+  FieldGroup,
+  FieldLabel,
+  FieldSeparator
+} from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
 import Image from "next/image";
-import { Controller } from "react-hook-form";
 
-const Login = () => {
-  const { form, handleLogin, isLoading } = useLogin();
-
+const Login = ({ className, ...props }: React.ComponentProps<"div">) => {
+  // const { form, handleLogin, isLoading } = useLogin();
   return (
-    <Card.Root className="rounded-5xl overflow-hidden" width={1024}>
-      <Flex gap={5}>
-        {/* Left */}
-        <div className="lg:block hidden w-1/3">
-          <Image
-            src={`/images/illustrations/logo.gif`}
-            alt="logo"
-            width={1024}
-            height={1024}
-            unoptimized
-            className="w-full"
-          />
-        </div>
-
-        {/* Right */}
-        <Card.Body>
-          <Card.Title>LuxeMist - Login</Card.Title>
-          <Card.Description>Welcome administrator</Card.Description>
-
-          <Flex flexDirection={"column"} marginTop={10}>
-            <form onSubmit={form.handleSubmit(handleLogin)}>
-              <Stack gap="5" align="flex-start">
-                <Controller
-                  name="email"
-                  control={form.control}
-                  render={({ field }) => (
-                    <Field.Root>
-                      <Field.Label>Email</Field.Label>
-                      <Input {...field} autoComplete="off" />
-                    </Field.Root>
-                  )}
-                />
-
-                <Controller
-                  name="password"
-                  control={form.control}
-                  render={({ field }) => (
-                    <Field.Root>
-                      <Field.Label>Password</Field.Label>
-                      <PasswordInput {...field} autoComplete="off" autoFocus />
-                    </Field.Root>
-                  )}
-                />
-
-                <Button
-                  type="submit"
-                  className="w-full"
-                  marginTop={10}
-                  disabled={isLoading}
-                >
-                  {isLoading ? <Spinner size="sm" /> : "Login"}
-                </Button>
-              </Stack>
-            </form>
-          </Flex>
-        </Card.Body>
-      </Flex>
-    </Card.Root>
+    <div className={cn("flex flex-col gap-6", className)} {...props}>
+      <Card className="overflow-hidden p-0">
+        <CardContent className="grid p-0 md:grid-cols-2">
+          <form className="p-6 md:p-8">
+            <FieldGroup>
+              <div className="flex flex-col items-center gap-2 text-center">
+                <h1 className="text-2xl font-bold">Welcome Back</h1>
+                <p className="text-muted-foreground text-balance">
+                  Hello Master, Comeback against
+                </p>
+              </div>
+              <Field>
+                <FieldLabel htmlFor="email">Email</FieldLabel>
+                <Input id="email" type="email" />
+              </Field>
+              <Field>
+                <div className="flex items-center">
+                  <FieldLabel htmlFor="password">Password</FieldLabel>
+                </div>
+                <Input id="password" type="password" required />
+              </Field>
+              <Field>
+                <Button type="submit">Login</Button>
+              </Field>
+            </FieldGroup>
+          </form>
+          <div className="bg-muted relative hidden md:block">
+            <Image
+              width={1000}
+              height={1000}
+              src="/images/illustrations/logo.gif"
+              alt="Image"
+              unoptimized
+              className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+            />
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 
