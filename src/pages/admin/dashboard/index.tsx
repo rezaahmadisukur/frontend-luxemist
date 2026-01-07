@@ -2,15 +2,22 @@ import useLogin from "@/hooks/useLogin";
 import { useEffect } from "react";
 
 const DashboardPage = () => {
-  const { isUser } = useLogin();
+  // const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { isUser, isLoading } = useLogin();
 
   useEffect(() => {
     isUser();
-  }, [isUser]);
+  }, []);
 
   return (
     <div>
-      <h1>Dashboard Page</h1>
+      {isLoading ? (
+        <div className="italic text-2xl font-semibold">
+          <p>Loading ...</p>
+        </div>
+      ) : (
+        <h1>Dashboard Page</h1>
+      )}
     </div>
   );
 };
