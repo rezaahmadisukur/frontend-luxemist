@@ -85,9 +85,9 @@ const Login = ({ className, ...props }: React.ComponentProps<"div">) => {
             <Image
               width={1024}
               height={1024}
-              src="/images/illustrations/logo.gif"
+              src="/images/illustrations/logo.png"
               alt="Image"
-              className="w-full h-full"
+              className="w-full h-full bg-white"
               unoptimized
             />
           </div>

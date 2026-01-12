@@ -1,3 +1,4 @@
+import { AuthProvider } from "@/contexts/AuthContext";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { Fragment } from "react/jsx-runtime";
@@ -5,8 +6,10 @@ import { Toaster } from "sonner";
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <Fragment>
-      <Component {...pageProps} />
-      <Toaster />
+      <AuthProvider>
+        <Component {...pageProps} />
+        <Toaster />
+      </AuthProvider>
     </Fragment>
   );
 }
