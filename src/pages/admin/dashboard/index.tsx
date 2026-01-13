@@ -1,11 +1,12 @@
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
+import { AdminLayout } from "@/components/layouts";
 
 const DashboardPage = () => {
   return (
     <ProtectedRoute>
-      <div>
+      <AdminLayout>
         <h1>Dashboard Page</h1>
-      </div>
+      </AdminLayout>
     </ProtectedRoute>
   );
 };
