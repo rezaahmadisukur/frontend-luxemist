@@ -5,7 +5,7 @@ import Dashboard from "@/components/views/Dashboard";
 const DashboardPage = () => {
   return (
     <ProtectedRoute>
-      <AdminLayout>
+      <AdminLayout title="Luxemist | Dashboard">
         <Dashboard />
       </AdminLayout>
     </ProtectedRoute>

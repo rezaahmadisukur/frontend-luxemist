@@ -4,9 +4,11 @@ import { Plus, Search } from "lucide-react";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import useFetch from "@/hooks/useFetch";
 import { Input } from "@/components/ui/input";
+import Link from "next/link";
 
 const Dashboard = () => {
   const { form } = useFetch();
+
   return (
     <div>
       <header>
@@ -41,7 +43,9 @@ const Dashboard = () => {
         </Form>
 
         <Button className="cursor-pointer">
-          <Plus /> Add Product
+          <Link href="/admin/create" className="flex gap-3 items-center">
+            <Plus /> Add Product
+          </Link>
         </Button>
       </div>
 

@@ -17,7 +17,7 @@ const dashboardRoutes: Route[] = [
     id: "home",
     title: "Home",
     icon: <Home className="size-4" />,
-    link: "#"
+    link: "/admin/dashboard"
   }
 ];
 
@@ -39,7 +39,7 @@ const DashboardSidebar = () => {
           <Logo className="h-8 w-8" />
           {!isCollapsed && (
             <span className="font-semibold text-black dark:text-white">
-              Acme
+              Luxemist
             </span>
           )}
         </a>
