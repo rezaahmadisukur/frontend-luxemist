@@ -5,6 +5,10 @@ const ProductService = {
   findAll: async (): Promise<IProduct[]> => {
     const res = await api.get<IProduct[]>(`/product`);
     return res.data;
+  },
+
+  create: async (data) => {
+    await api.post("/product", data);
   }
 };
 

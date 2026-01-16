@@ -4,23 +4,27 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel
+  FormLabel,
+  FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import useFetch from "@/hooks/useFetch";
 
 const FormCreate = () => {
-  const { form } = useFetch();
+  const { form, handleAddProduct } = useFetch();
 
   return (
-    <div className="pb-20">
+    <div className="w-full h-auto p-10 bg-background my-10 shadow-lg">
       <header>
         <h1 className="text-4xl font-bold">Create New Product</h1>
       </header>
 
       <Form {...form}>
-        <form className="mt-20 space-y-5">
+        <form
+          className="mt-20 space-y-5"
+          onSubmit={form.handleSubmit(handleAddProduct)}
+        >
           <FormField
             name="name"
             control={form.control}
@@ -28,8 +32,13 @@ const FormCreate = () => {
               <FormItem>
                 <FormLabel>Product Name</FormLabel>
                 <FormControl className="mt-1">
-                  <Input {...field} placeholder="Luxe Mist" />
+                  <Input
+                    {...field}
+                    placeholder="Luxe Mist"
+                    autoComplete="off"
+                  />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -47,6 +56,7 @@ const FormCreate = () => {
                     rows={10}
                   />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -58,8 +68,15 @@ const FormCreate = () => {
               <FormItem>
                 <FormLabel>Price</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="e.g. 1000000" type="number" />
+                  <Input
+                    {...field}
+                    placeholder="e.g. 1000000"
+                    type="number"
+                    value={field.value as string | number}
+                    onChange={(e) => field.onChange(e.target.value)}
+                  />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -71,8 +88,15 @@ const FormCreate = () => {
               <FormItem>
                 <FormLabel>Stock</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="e.g. 100" />
+                  <Input
+                    {...field}
+                    placeholder="e.g. 100"
+                    type="number"
+                    value={field.value as string | number}
+                    onChange={(e) => field.onChange(e.target.value)}
+                  />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -84,8 +108,15 @@ const FormCreate = () => {
               <FormItem>
                 <FormLabel>Volume</FormLabel>
                 <FormControl>
-                  <Input type="number" {...field} placeholder="e.g. 40" />
+                  <Input
+                    type="number"
+                    {...field}
+                    placeholder="e.g. 40"
+                    value={field.value as string | number}
+                    onChange={(e) => field.onChange(e.target.value)}
+                  />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -103,6 +134,7 @@ const FormCreate = () => {
                     type="text"
                   />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -110,21 +142,30 @@ const FormCreate = () => {
           <FormField
             name="cover"
             control={form.control}
-            render={({ field }) => (
+            render={({ field: { value, onChange, ...fieldProps } }) => (
               <FormItem>
                 <FormLabel>Cover</FormLabel>
                 <FormControl>
-                  <Input placeholder="Choose Cover" type="file" {...field} />
+                  <Input
+                    placeholder="Choose Cover"
+                    type="file"
+                    {...fieldProps}
+                    onChange={(event) => {
+                      const file = event.target.files && event.target.files[0];
+                      onChange(file);
+                    }}
+                  />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
 
           <div className="flex justify-end items-center gap-5">
-            <Button variant={"destructive"} className="w-1/2">
+            <Button variant={"destructive"} className="w-1/3">
               Cancel
             </Button>
-            <Button className="w-1/2">Save</Button>
+            <Button className="w-1/3">Save</Button>
           </div>
         </form>
       </Form>

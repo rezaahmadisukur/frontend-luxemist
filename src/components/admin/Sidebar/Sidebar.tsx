@@ -5,9 +5,10 @@ import { ReactNode } from "react";
 export default function Sidebar({ children }: { children: ReactNode }) {
   return (
     <SidebarProvider>
-      <div className="relative flex h-screen w-full">
+      <div className="flex h-screen w-full">
         <DashboardSidebar />
-        {children}
+
+        <div className="w-full">{children}</div>
       </div>
     </SidebarProvider>
   );
