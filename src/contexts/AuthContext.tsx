@@ -31,7 +31,7 @@ export const AuthContext = createContext<AuthContextType | undefined>(
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [admin, setAdmin] = useState<Admin | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const router = useRouter();
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const checkAuth = async () => {
-    setIsLoading(true);
+    // setIsLoading(true);
     try {
       const token = AuthService.getToken();
       if (!token) {
@@ -54,6 +54,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     } catch (error) {
       console.error("Auth check failed", error);
       localStorage.removeItem("token");
+      localStorage.removeItem("admin");
       setAdmin(null);
 
       if (router.pathname !== "/admin/login") {

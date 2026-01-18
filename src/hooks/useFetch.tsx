@@ -4,12 +4,14 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/router";
 
 type FormSchema = z.infer<typeof CreateProductSchema>;
 
 const useFetch = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [products, setProducts] = useState<IProduct[]>([]);
+  const router = useRouter();
   const form = useForm({
     resolver: zodResolver(CreateProductSchema),
     defaultValues: {
@@ -23,7 +25,6 @@ const useFetch = () => {
   });
 
   const getProducts = async () => {
-    setIsLoading(true);
     try {
       const response = await ProductService.findAll();
       setProducts(response);
@@ -34,7 +35,7 @@ const useFetch = () => {
     }
   };
 
-  const handleAddProduct = (values: FormSchema) => {
+  const handleAddProduct = async (values: FormSchema) => {
     const formData = new FormData();
 
     formData.append("name", values.name);
@@ -48,13 +49,31 @@ const useFetch = () => {
       formData.append("cover", values.cover);
     }
 
-    console.log("---- Cek Data ----");
-    formData.forEach((value) => {
-      console.log(value);
-    });
+    setIsLoading(true);
+    try {
+      await ProductService.create(formData);
+      form.reset();
+      router.push("/admin/dashboard");
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(true);
+    }
   };
 
-  return { getProducts, products, isLoading, form, handleAddProduct };
+  const handleCancel = () => {
+    form.reset();
+    router.push("/admin/dashboard");
+  };
+
+  return {
+    getProducts,
+    products,
+    isLoading,
+    form,
+    handleAddProduct,
+    handleCancel
+  };
 };
 
 export default useFetch;

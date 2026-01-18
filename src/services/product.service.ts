@@ -7,8 +7,10 @@ const ProductService = {
     return res.data;
   },
 
-  create: async (data) => {
-    await api.post("/product", data);
+  create: async (data: FormData) => {
+    console.log(data);
+    const res = await api.post("/product", data);
+    return res;
   }
 };
 

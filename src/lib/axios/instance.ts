@@ -3,10 +3,10 @@ import axios from "axios";
 
 const api = axios.create({
   baseURL: NEXT_PUBLIC_API_URL,
-  timeout: 5000,
-  headers: {
-    "Content-Type": "application/json"
-  }
+  timeout: 5000
+  // headers: {
+  //   "Content-Type": "multipart/form-data"
+  // }
 });
 
 api.interceptors.request.use(

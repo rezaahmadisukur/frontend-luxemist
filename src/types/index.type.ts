@@ -1,5 +1,4 @@
 import z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
 
 export interface ILogin {
   email: string;
@@ -12,7 +11,7 @@ export interface IProduct {
   description: string;
   price: number;
   stock: number;
-  image: string;
+  cover: string;
   category: string;
   valume: number;
   createdAt: Date | string;

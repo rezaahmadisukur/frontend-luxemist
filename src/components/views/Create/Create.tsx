@@ -8,11 +8,12 @@ import {
   FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Spinner } from "@/components/ui/spinner";
 import { Textarea } from "@/components/ui/textarea";
 import useFetch from "@/hooks/useFetch";
 
 const FormCreate = () => {
-  const { form, handleAddProduct } = useFetch();
+  const { form, handleAddProduct, isLoading, handleCancel } = useFetch();
 
   return (
     <div className="w-full h-auto p-10 bg-background my-10 shadow-lg">
@@ -162,10 +163,16 @@ const FormCreate = () => {
           />
 
           <div className="flex justify-end items-center gap-5">
-            <Button variant={"destructive"} className="w-1/3">
+            <Button
+              onClick={handleCancel}
+              variant={"destructive"}
+              className="w-1/3"
+            >
               Cancel
             </Button>
-            <Button className="w-1/3">Save</Button>
+            <Button disabled={isLoading} className="w-1/3">
+              {isLoading ? <Spinner /> : "Save"}
+            </Button>
           </div>
         </form>
       </Form>

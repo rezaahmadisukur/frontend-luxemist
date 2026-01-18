@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/table";
 import useFetch from "@/hooks/useFetch";
 import { SquarePen, Trash2 } from "lucide-react";
+import Image from "next/image";
 import { useEffect } from "react";
 
 // const products = [
@@ -51,10 +52,13 @@ import { useEffect } from "react";
 
 export default function TableProduct() {
   const { getProducts, products, isLoading } = useFetch();
+  const BACKEND_URL = "http://localhost:4000";
 
   useEffect(() => {
     getProducts();
   }, []);
+
+  console.log(products);
 
   return (
     <div className="w-full border rounded-md overflow-hidden">
@@ -62,6 +66,7 @@ export default function TableProduct() {
         <TableHeader>
           <TableRow>
             <TableHead className="pl-4">ID</TableHead>
+            <TableHead>Cover</TableHead>
             <TableHead>Product Name</TableHead>
             <TableHead>Description</TableHead>
             <TableHead>Price (USD)</TableHead>
@@ -73,6 +78,16 @@ export default function TableProduct() {
           {products.map((product) => (
             <TableRow key={product.id} className="odd:bg-muted/50">
               <TableCell className="pl-4">{product.id}</TableCell>
+              <TableCell className="font-medium">
+                <Image
+                  src={`${BACKEND_URL}/uploads/${product.cover}`}
+                  width={50}
+                  height={50}
+                  alt={`cover-${product.name}`}
+                  className="object-cover rounded-md aspect-square"
+                  unoptimized={true}
+                />
+              </TableCell>
               <TableCell className="font-medium">{product.name}</TableCell>
               <TableCell>{product.description}</TableCell>
               <TableCell>{product.price.toLocaleString()}</TableCell>
