@@ -8,9 +8,11 @@ const ProductService = {
   },
 
   create: async (data: FormData) => {
-    console.log(data);
-    const res = await api.post("/product", data);
-    return res;
+    await api.post("/product", data);
+  },
+
+  delete: async (id: number) => {
+    await api.delete(`/product/${id}`);
   }
 };
 

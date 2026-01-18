@@ -51,14 +51,12 @@ import { useEffect } from "react";
 // ];
 
 export default function TableProduct() {
-  const { getProducts, products, isLoading } = useFetch();
+  const { getProducts, products, isLoading, handleDelete } = useFetch();
   const BACKEND_URL = "http://localhost:4000";
 
   useEffect(() => {
     getProducts();
   }, []);
-
-  console.log(products);
 
   return (
     <div className="w-full border rounded-md overflow-hidden">
@@ -75,9 +73,9 @@ export default function TableProduct() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {products.map((product) => (
+          {products.map((product, index) => (
             <TableRow key={product.id} className="odd:bg-muted/50">
-              <TableCell className="pl-4">{product.id}</TableCell>
+              <TableCell className="pl-4">{index + 1}</TableCell>
               <TableCell className="font-medium">
                 <Image
                   src={`${BACKEND_URL}/uploads/${product.cover}`}
@@ -96,9 +94,15 @@ export default function TableProduct() {
                 <Button className="cursor-pointer">
                   <SquarePen />
                 </Button>
-                <Button variant={"destructive"} className="cursor-pointer">
-                  <Trash2 />
-                </Button>
+                <form onSubmit={() => handleDelete(product.id)}>
+                  <Button
+                    type="submit"
+                    variant={"destructive"}
+                    className="cursor-pointer"
+                  >
+                    <Trash2 />
+                  </Button>
+                </form>
               </TableCell>
             </TableRow>
           ))}

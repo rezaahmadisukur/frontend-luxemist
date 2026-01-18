@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 type FormSchema = z.infer<typeof CreateProductSchema>;
 
 const useFetch = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [products, setProducts] = useState<IProduct[]>([]);
   const router = useRouter();
   const form = useForm({
@@ -25,6 +25,7 @@ const useFetch = () => {
   });
 
   const getProducts = async () => {
+    setIsLoading(true);
     try {
       const response = await ProductService.findAll();
       setProducts(response);
@@ -66,13 +67,22 @@ const useFetch = () => {
     router.push("/admin/dashboard");
   };
 
+  const handleDelete = async (id: number) => {
+    try {
+      await ProductService.delete(id);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return {
     getProducts,
     products,
     isLoading,
     form,
     handleAddProduct,
-    handleCancel
+    handleCancel,
+    handleDelete
   };
 };
 
