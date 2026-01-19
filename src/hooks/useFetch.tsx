@@ -1,5 +1,9 @@
 import ProductService from "@/services/product.service";
-import { CreateProductSchema, IProduct } from "@/types/index.type";
+import {
+  CreateProductSchema,
+  EditProductSchema,
+  IProduct
+} from "@/types/index.type";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
@@ -8,19 +12,22 @@ import { useRouter } from "next/router";
 
 type FormSchema = z.infer<typeof CreateProductSchema>;
 
-const useFetch = () => {
+const useFetch = (productId?: string | string[]) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [products, setProducts] = useState<IProduct[]>([]);
+  const [product, setProduct] = useState<IProduct | undefined>(undefined);
+  const isEditMode = !!productId;
   const router = useRouter();
   const form = useForm({
-    resolver: zodResolver(CreateProductSchema),
+    resolver: zodResolver(isEditMode ? EditProductSchema : CreateProductSchema),
     defaultValues: {
       name: "",
       description: "",
       price: 0,
       stock: 0,
       category: "",
-      volume: 0
+      volume: 0,
+      cover: undefined
     }
   });
 
@@ -33,6 +40,15 @@ const useFetch = () => {
       console.error(error);
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const getProduct = async (id: string | string[] | undefined) => {
+    try {
+      const response = await ProductService.findOne(id);
+      setProduct(response);
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -58,13 +74,44 @@ const useFetch = () => {
     } catch (error) {
       console.error(error);
     } finally {
-      setIsLoading(true);
+      setIsLoading(false);
     }
   };
 
   const handleCancel = () => {
     form.reset();
     router.push("/admin/dashboard");
+  };
+
+  const handleUpdate = async (values: z.infer<typeof EditProductSchema>) => {
+    if (!productId) {
+      console.log("Product not found");
+      return;
+    }
+
+    const formData = new FormData();
+
+    formData.append("name", values.name);
+    formData.append("description", values.description);
+    formData.append("price", String(values.price));
+    formData.append("stock", String(values.stock));
+    formData.append("category", values.category);
+    formData.append("volume", String(values.volume));
+
+    if (values.cover) {
+      formData.append("cover", values.cover);
+    }
+
+    setIsLoading(true);
+    try {
+      await ProductService.edit(productId, formData);
+      form.reset();
+      router.push("/admin/dashboard");
+    } catch (error) {
+      console.error("Update failed ", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleDelete = async (id: number) => {
@@ -77,10 +124,13 @@ const useFetch = () => {
 
   return {
     getProducts,
+    getProduct,
     products,
+    product,
     isLoading,
     form,
     handleAddProduct,
+    handleUpdate,
     handleCancel,
     handleDelete
   };

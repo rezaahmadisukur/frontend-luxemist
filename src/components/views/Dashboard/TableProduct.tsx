@@ -10,6 +10,7 @@ import {
 import useFetch from "@/hooks/useFetch";
 import { SquarePen, Trash2 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect } from "react";
 
 // const products = [
@@ -92,7 +93,9 @@ export default function TableProduct() {
               <TableCell>{product.stock}</TableCell>
               <TableCell className="flex gap-1">
                 <Button className="cursor-pointer">
-                  <SquarePen />
+                  <Link href={`/admin/edit/${product.id}`}>
+                    <SquarePen />
+                  </Link>
                 </Button>
                 <form onSubmit={() => handleDelete(product.id)}>
                   <Button
