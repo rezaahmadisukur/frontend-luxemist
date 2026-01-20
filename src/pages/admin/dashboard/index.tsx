@@ -1,6 +1,6 @@
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import { AdminLayout } from "@/components/layouts";
-import Dashboard from "@/components/views/Dashboard";
+import Dashboard from "@/components/views/Admin/Dashboard";
 
 const DashboardPage = () => {
   return (

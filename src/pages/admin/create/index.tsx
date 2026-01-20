@@ -1,6 +1,6 @@
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import { AdminLayout } from "@/components/layouts";
-import FormCreate from "@/components/views/Create";
+import FormCreate from "@/components/views/Admin/Create";
 
 const CreatePage = () => {
   return (

@@ -1,6 +1,6 @@
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import { AdminLayout } from "@/components/layouts";
-import FormEdit from "@/components/views/Edit";
+import FormEdit from "@/components/views/Admin/Edit";
 import { useRouter } from "next/router";
 
 const EditPage = () => {
