@@ -25,9 +25,12 @@ export const NavMenu = (props: ComponentProps<typeof NavigationMenu>) => {
               >
                 <Link
                   href={menu.href}
-                  className={cn({
-                    "text-white bg-black": menu.href === router.pathname
-                  })}
+                  className={cn(
+                    "hover:bg-black hover:text-white bg-transparent",
+                    {
+                      "text-white bg-black": menu.href === router.pathname
+                    }
+                  )}
                 >
                   {menu.label}
                 </Link>

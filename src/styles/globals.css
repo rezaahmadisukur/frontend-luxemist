@@ -121,3 +121,10 @@
     @apply bg-background text-foreground;
   }
 }
+
+#home {
+  background-image: url("/images/background/bg.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}

@@ -12,9 +12,7 @@ const GuestLayout = ({ title, children }: TProps) => {
     <>
       <PageHead title={title} />
       <Navbar />
-      <section className="max-w-screen-3xl 3xl:container p-6">
-        {children}
-      </section>
+      <section className="max-w-screen-3xl 3xl:container">{children}</section>
     </>
   );
 };
