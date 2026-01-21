@@ -9,10 +9,12 @@ import { useForm } from "react-hook-form";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/router";
+import { useSearchParams } from "next/navigation";
 
 type FormSchema = z.infer<typeof CreateProductSchema>;
 
 const useFetch = (productId?: string | string[]) => {
+  const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [products, setProducts] = useState<IProduct[]>([]);
   const [product, setProduct] = useState<IProduct | undefined>(undefined);
@@ -30,11 +32,12 @@ const useFetch = (productId?: string | string[]) => {
       cover: undefined
     }
   });
+  const search = searchParams.get("search") || "";
 
   const getProducts = useCallback(async () => {
     setIsLoading(true);
     try {
-      const response = await ProductService.findAll();
+      const response = await ProductService.findAll(search);
       setProducts(response);
     } catch (error) {
       console.error(error);

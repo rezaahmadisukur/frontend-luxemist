@@ -3,8 +3,11 @@ import TableProduct from "./TableProduct";
 import { Plus, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import useFilter from "@/hooks/useFilter";
 
 const Dashboard = () => {
+  const { handleFilter, searchParams } = useFilter();
+  // const search = queryParams.get("search");
   return (
     <div>
       <header>
@@ -12,18 +15,20 @@ const Dashboard = () => {
       </header>
 
       <div className="flex justify-between items-center mt-10">
-        <div className="flex gap-3 w-1/2">
+        <form onSubmit={handleFilter} className="flex gap-3 w-1/2">
           <Input
             placeholder="Search Product"
             className="w-full"
             type="search"
             id="search"
+            name="search"
             autoComplete="off"
+            defaultValue={searchParams.get("search")?.toString()}
           />
-          <Button className="cursor-pointer">
+          <Button type="submit" className="cursor-pointer">
             <Search />
           </Button>
-        </div>
+        </form>
 
         <Button className="cursor-pointer">
           <Link href="/admin/create" className="flex gap-3 items-center">
