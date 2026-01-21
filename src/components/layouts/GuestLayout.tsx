@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import PageHead from "../commons";
 import Navbar from "../guest/navbar/navbar";
+import Footer from "../guest/footer/footer";
 
 type TProps = {
   title?: string;
@@ -13,6 +14,7 @@ const GuestLayout = ({ title, children }: TProps) => {
       <PageHead title={title} />
       <Navbar />
       <section className="max-w-screen-3xl 3xl:container">{children}</section>
+      <Footer />
     </>
   );
 };

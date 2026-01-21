@@ -7,7 +7,7 @@ import Link from "next/link";
 export default function Hero() {
   return (
     <div className="min-h-screen flex items-center justify-center overflow-hidden">
-      <div className="max-w-(--breakpoint-xl) w-full mx-auto grid lg:grid-cols-2 gap-12 px-6 py-12 lg:py-0 grid-cols-1">
+      <div className="max-w-(--breakpoint-xl) w-full mx-auto grid lg:grid-cols-2 gap-12 px-6 grid-cols-1">
         <div className="my-auto flex flex-col justify-center items-center lg:items-start">
           <Badge
             variant="secondary"
