@@ -36,15 +36,20 @@ const useFetch = (productId?: string | string[]) => {
 
   const getProducts = useCallback(async () => {
     setIsLoading(true);
+    const params = { search };
+
+    if (!params) {
+      return;
+    }
     try {
-      const response = await ProductService.findAll(search);
+      const response = await ProductService.findAll({ search: search });
       setProducts(response);
     } catch (error) {
       console.error(error);
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [search]);
 
   const getProduct = async (id: string | string[] | undefined) => {
     try {

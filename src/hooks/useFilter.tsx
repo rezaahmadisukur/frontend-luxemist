@@ -19,7 +19,11 @@ const useFilter = () => {
       params.delete("search");
     }
 
-    replace(`${pathname}?${params.toString()}`);
+    const queryString = params.toString();
+
+    const url = queryString ? `${pathname}?${params.toString()}` : pathname;
+
+    replace(url, { scroll: false });
   };
 
   return { handleFilter, searchParams };

@@ -1,10 +1,20 @@
 import api from "@/lib/axios/instance";
 import { IProduct } from "@/types/index.type";
 
+interface IFilters {
+  search?: string;
+}
+
 const ProductService = {
-  findAll: async (params: string): Promise<IProduct[]> => {
+  findAll: async (filters: IFilters): Promise<IProduct[]> => {
+    const params: IFilters = {};
+
+    if (filters.search) params.search = filters.search;
+
+    console.log(params);
+
     const res = await api.get<IProduct[]>(`/product`, {
-      params
+      params: params
     });
     return res.data;
   },
