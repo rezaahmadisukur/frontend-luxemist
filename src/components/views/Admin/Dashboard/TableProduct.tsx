@@ -57,7 +57,7 @@ export default function TableProduct() {
 
   useEffect(() => {
     getProducts();
-  }, []);
+  }, [getProducts]);
 
   return (
     <div className="w-full border rounded-md overflow-hidden">

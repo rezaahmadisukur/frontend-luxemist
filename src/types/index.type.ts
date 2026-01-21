@@ -11,7 +11,7 @@ export interface IProduct {
   description: string;
   price: number;
   stock: number;
-  cover: string | File;
+  cover: string;
   category: string;
   volume: number;
   createdAt: Date | string;

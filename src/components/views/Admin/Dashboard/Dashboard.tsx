@@ -1,14 +1,10 @@
 import { Button } from "@/components/ui/button";
 import TableProduct from "./TableProduct";
 import { Plus, Search } from "lucide-react";
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
-import useFetch from "@/hooks/useFetch";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 
 const Dashboard = () => {
-  const { form } = useFetch();
-
   return (
     <div>
       <header>
@@ -16,31 +12,18 @@ const Dashboard = () => {
       </header>
 
       <div className="flex justify-between items-center mt-10">
-        <Form {...form}>
-          <form className="flex items-center gap-5 w-1/2">
-            <FormField
-              name="search"
-              control={form.control}
-              render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="Search Product"
-                      className="w-full"
-                      type="search"
-                      id="search"
-                      autoComplete="off"
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-            <Button className="cursor-pointer">
-              <Search />
-            </Button>
-          </form>
-        </Form>
+        <div className="flex gap-3 w-1/2">
+          <Input
+            placeholder="Search Product"
+            className="w-full"
+            type="search"
+            id="search"
+            autoComplete="off"
+          />
+          <Button className="cursor-pointer">
+            <Search />
+          </Button>
+        </div>
 
         <Button className="cursor-pointer">
           <Link href="/admin/create" className="flex gap-3 items-center">

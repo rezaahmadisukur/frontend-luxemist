@@ -4,7 +4,7 @@ import {
   EditProductSchema,
   IProduct
 } from "@/types/index.type";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -31,7 +31,7 @@ const useFetch = (productId?: string | string[]) => {
     }
   });
 
-  const getProducts = async () => {
+  const getProducts = useCallback(async () => {
     setIsLoading(true);
     try {
       const response = await ProductService.findAll();
@@ -41,7 +41,7 @@ const useFetch = (productId?: string | string[]) => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
   const getProduct = async (id: string | string[] | undefined) => {
     try {
