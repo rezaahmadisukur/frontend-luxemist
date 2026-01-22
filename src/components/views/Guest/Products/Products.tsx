@@ -1,4 +1,8 @@
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import useFetch from "@/hooks/useFetch";
+import useFilter from "@/hooks/useFilter";
 import { IProduct } from "@/types/index.type";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,6 +10,7 @@ import { useEffect } from "react";
 
 const Products = () => {
   const { products, getProducts } = useFetch();
+  const { handleFilter, searchParams } = useFilter();
   const BACKEND_URL = "http://localhost:4000";
 
   useEffect(() => {
@@ -18,15 +23,30 @@ const Products = () => {
     <div className="min-h-screen max-w-5xl 5xl:container mx-auto py-20">
       <div className="flex gap-5 w-full">
         {/* Filter */}
-        <div className="w-3/12 border min-h-screen">
-          <div className="border">
-            <h1 className="text-3xl font-bold">Filter</h1>
+        <div className="w-3/12 shadow-2xs p-5 rounded-2xl">
+          <div className="">
+            <h1 className="text-3xl font-bold mb-5">Filter</h1>
 
-            <form action=""></form>
+            <form onSubmit={handleFilter} className="flex flex-col">
+              <div className="flex flex-col gap-3">
+                <Label htmlFor="search">Search</Label>
+                <Input
+                  id="search"
+                  name="search"
+                  type="search"
+                  placeholder="Search product ..."
+                  className="w-full"
+                  autoComplete="off"
+                  defaultValue={searchParams?.get("search")?.toString()}
+                />
+              </div>
+
+              <Button className="mt-10">Search</Button>
+            </form>
           </div>
         </div>
         {/* Products */}
-        <div className="w-9/12">
+        <div className="w-9/12 p-5">
           <h1 className="text-3xl font-bold">List Products</h1>
 
           <div className="grid grid-cols-2 lg:grid-cols-3 mt-10 gap-5">

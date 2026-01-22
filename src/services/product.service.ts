@@ -11,8 +11,6 @@ const ProductService = {
 
     if (filters.search) params.search = filters.search;
 
-    console.log(params);
-
     const res = await api.get<IProduct[]>(`/product`, {
       params: params
     });
